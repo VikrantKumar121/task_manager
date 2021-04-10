@@ -1,0 +1,13 @@
+Django==3.0.5
+djangorestframework==3.11.0
+djangorestframework-jwt==1.11.0
+django-rest-framework-mongoengine==3.4.1
+python-dotenv
+celery
+redis
+mongoengine==0.23.0
+mango-jwt
+django-cors-headers
+gunicorn
+blinker
+bcrypt

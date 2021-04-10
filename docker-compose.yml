@@ -1,0 +1,39 @@
+version: '3'
+
+services:
+  web:
+    restart: always
+    build: ./project_management
+    expose:
+      - "8000"
+    volumes:
+      - web-django:/usr/src/app
+      - web-static:/usr/src/app/static
+    env_file:
+      - ./.env
+
+    environment:
+      DEBUG: 'true'
+    command: gunicorn project_management.wsgi:application --bind 0.0.0.0:8000 --timeout 3000
+
+  nginx:
+    restart: always
+    build: ./nginx/
+    ports:
+      - "8002:80"
+    volumes:
+      - web-static:/www/static
+    links:
+      - web:web
+
+#  postgres:
+#    restart: always
+#    image: postgres:latest
+#    ports:
+#      - "5432:5432"
+#    volumes:
+#      - pgdata:/var/lib/postgresql/data/
+volumes:
+  web-django:
+  web-static:
+#  pgdata:
